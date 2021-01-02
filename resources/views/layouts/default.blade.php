@@ -5,12 +5,14 @@
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
   </head>
   <body>
-    @include("layouts/_header")
+    @include("layouts._header")
 
     <div class="container">
+      @include('shared._message')
+
       @yield('content')
 
-      @include("layouts/_footer")
+      @include("layouts._footer")
     </div>
   </body>
 </html>

@@ -25,5 +25,10 @@ class UsersController extends Controller
             'password' => 'required|string|confirmed|min:6',
         ];
         $this->validate($request, $rules);
+
+        $user = User::create($request->only(['name', 'email', 'password']));
+
+        session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
+        return redirect()->route('users.show', [$user]);
     }
 }
