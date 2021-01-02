@@ -8,6 +8,26 @@ use Illuminate\Support\Facades\Auth;
 
 class UsersController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'expect' => [
+                // 已登录用户不能访问
+                // 'show', // 展示用户详情
+                'create', // 创建用户页面
+                'store', //  创建用户提交
+            ],
+        ]);
+
+        $this->middleware('guest', [
+            'only' => [
+                // 只能未登录用户访问
+                'create', // 创建用户页面
+                'store', //  创建用户提交
+            ],
+        ]);
+    }
+
     public function create()
     {
         return view('users/create');
@@ -45,6 +65,8 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+        $this->authorize('update', $user);
+
         return view('users.edit', compact('user'));
     }
 
@@ -54,6 +76,8 @@ class UsersController extends Controller
      */
     public function update(User $user, Request $request)
     {
+        $this->authorize('update', $user);
+
         $rules = [
             'name' => 'required|string|max:50',
             'password' => 'nullable|string|confirmed|min:6',
@@ -66,7 +90,7 @@ class UsersController extends Controller
         if (!empty($request->password)) {
             $data['password'] = bcrypt($request->password);
         }
-        $user->update($request->only($data));
+        $user->update($data);
 
         session()->flash('success', '个人资料更新成功！');
         return redirect()->route('users.show', [$user]);

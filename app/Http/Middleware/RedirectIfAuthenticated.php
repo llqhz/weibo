@@ -19,6 +19,8 @@ class RedirectIfAuthenticated
     public function handle($request, Closure $next, $guard = null)
     {
         if (Auth::guard($guard)->check()) {
+            // 如果已经登录，不用再访问注册登录页
+            session()->flash('info', '您已登录，无需再次操作。');
             return redirect(RouteServiceProvider::HOME);
         }
 
