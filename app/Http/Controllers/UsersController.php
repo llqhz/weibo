@@ -11,6 +11,7 @@ class UsersController extends Controller
     public function __construct()
     {
         $this->middleware('auth', [
+            // 登录后才能访问页面
             'expect' => [
                 // 已登录用户不能访问
                 // 'show', // 展示用户详情
@@ -21,6 +22,7 @@ class UsersController extends Controller
         ]);
 
         $this->middleware('guest', [
+            // 不用登录可以访问的页面
             'only' => [
                 // 只能未登录用户访问
                 'create', // 创建用户页面
@@ -105,5 +107,15 @@ class UsersController extends Controller
         $users = User::query()->paginate(10);
 
         return view('users.index', compact('users'));
+    }
+
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+
+        $user->delete();
+
+        session()->flash('success', '成功删除用户！');
+        return redirect()->back();
     }
 }
