@@ -26,7 +26,12 @@ class UsersController extends Controller
         ];
         $this->validate($request, $rules);
 
-        $user = User::create($request->only(['name', 'email', 'password']));
+        $user = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+        ];
+        $user = User::create($user);
 
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
         return redirect()->route('users.show', [$user]);
