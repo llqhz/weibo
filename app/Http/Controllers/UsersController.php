@@ -16,6 +16,7 @@ class UsersController extends Controller
                 // 'show', // 展示用户详情
                 'create', // 创建用户页面
                 'store', //  创建用户提交
+                'index',
             ],
         ]);
 
@@ -94,5 +95,15 @@ class UsersController extends Controller
 
         session()->flash('success', '个人资料更新成功！');
         return redirect()->route('users.show', [$user]);
+    }
+
+    /**
+     * 用户列表(可匿名访问)
+     */
+    public function index()
+    {
+        $users = User::query()->paginate(10);
+
+        return view('users.index', compact('users'));
     }
 }
