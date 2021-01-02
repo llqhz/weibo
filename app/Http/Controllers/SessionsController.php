@@ -21,7 +21,7 @@ class SessionsController extends Controller
         $this->validate($request, $rules);
 
         // 验证用户是否登录成功
-        if (Auth::attempt($request->only('email', 'password'))) {
+        if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
             // 登录成功
             session()->flash('success', '欢迎回来！');
             return redirect()->route('home', [Auth::user()]);
