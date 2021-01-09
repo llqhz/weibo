@@ -33,11 +33,19 @@ class SessionsController extends Controller
         // 验证用户是否登录成功
         if (Auth::attempt($request->only('email', 'password'), $request->has('remember'))) {
             // 登录成功
-            session()->flash('success', '欢迎回来！');
+            if (Auth::user()->activated) {
+                // 如果邮箱已经验证通过
+                session()->flash('success', '欢迎回来！');
 
-            // 尝试跳转到登录之前的页面
-            $fallback = route('home', [Auth::user()]);
-            return redirect()->intended($fallback);
+                // 尝试跳转到登录之前的页面
+                $fallback = route('home', [Auth::user()]);
+                return redirect()->intended($fallback);
+            } else {
+                // 如果邮箱未被验证
+                Auth::logout();
+                session()->flash('warning', '你的账号未激活，请检查邮箱中的注册邮件进行激活。');
+                return redirect('/');
+            }
         } else {
             // 登录失败
             session()->flash('danger', '很抱歉，您的邮箱和密码不匹配');
@@ -49,6 +57,6 @@ class SessionsController extends Controller
     {
         Auth::logout();
         session()->flash('success', '您已成功退出！');
-        return redirect('login');
+        return redirect()->route('login');
     }
 }
