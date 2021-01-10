@@ -66,4 +66,12 @@ class User extends Authenticatable
     {
         return $this->hasMany(Status::class, 'user_id', 'id');
     }
+
+    public static function getUsersWithMe($me, $limit)
+    {
+        $one_query = self::query()->where('name', '=', $me);
+        $second_query = self::query()->where('name', '!=', $me);
+        return self::query()->from($one_query->union($second_query), 'u')
+            ->latest()->limit($limit)->get();
+    }
 }

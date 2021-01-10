@@ -34,7 +34,10 @@ class UsersController extends Controller
 
     public function show(User $user)
     {
-        return view('users/show', compact('user'));
+        // 获取用户的附属资源
+        $statuses = $user->statuses()->orderBy('updated_at','desc')->paginate(10);
+
+        return view('users/show', compact('user', 'statuses'));
     }
 
     public function store(Request $request)
