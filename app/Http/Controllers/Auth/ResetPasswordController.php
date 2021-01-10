@@ -11,7 +11,7 @@ class ResetPasswordController extends Controller
     /*
     |--------------------------------------------------------------------------
     | Password Reset Controller
-    |--------------------------------------------------------------------------
+    |---------------------F-----------------------------------------------------
     |
     | This controller is responsible for handling password reset requests
     | and uses a simple trait to include this behavior. You're free to
@@ -26,5 +26,11 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::HOME;
+    protected $redirectTo = '/';
+
+    public function __construct()
+    {
+        // 已登录也允许修改密码
+        // $this->middleware('guest');
+    }
 }
