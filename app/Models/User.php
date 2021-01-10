@@ -58,4 +58,12 @@ class User extends Authenticatable
             $user->activation_token = Str::random(10);
         });
     }
+
+    // 关联模型
+
+    // 用户的所有文章
+    public function statuses()
+    {
+        return $this->hasMany(Status::class, 'user_id', 'id');
+    }
 }
