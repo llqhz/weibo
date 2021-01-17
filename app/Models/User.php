@@ -74,4 +74,13 @@ class User extends Authenticatable
         return self::query()->from($one_query->union($second_query), 'u')
             ->latest()->limit($limit)->get();
     }
+
+    /**
+     * 获取用户已经发布的微博
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function feed()
+    {
+        return $this->statuses()->latest();
+    }
 }

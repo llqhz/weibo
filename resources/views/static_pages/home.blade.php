@@ -14,6 +14,16 @@
          </section>
        </aside>
      </div>
+
+     <div class="row">
+       <div class="col-md-12">
+         <!-- 用户动态 -->
+         <section class="status">
+           @include('shared._feed', ['feed_items' => $feed_items])
+         </section>
+         <!-- 用户动态 -->
+       </div>
+     </div>
    @else
      <div class="jumbotron">
        <h1>Hello Laravel</h1>

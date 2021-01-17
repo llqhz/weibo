@@ -14,19 +14,7 @@
 
         <!-- 用户动态 -->
         <section class="status">
-          @if($statuses->count() > 0)
-            <ul class="list-unstyled">
-              @foreach($statuses as $status)
-                @include('statuses._status', ['user' => $user, 'status' => $status])
-              @endforeach
-            </ul>
-
-            <dev class="mt-5">
-              {!! $statuses->render() !!}
-            </dev>
-          @else
-            <p>没有数据！</p>
-          @endif
+          @include('shared._feed', ['feed_items' => $statuses])
         </section>
         <!-- 用户动态 -->
       </div>
