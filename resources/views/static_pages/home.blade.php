@@ -16,7 +16,7 @@
      </div>
 
      <div class="row">
-       <div class="col-md-12">
+       <div class="col-md-8">
          <!-- 用户动态 -->
          <section class="status">
            @include('shared._feed', ['feed_items' => $feed_items])

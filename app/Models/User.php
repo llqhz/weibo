@@ -81,6 +81,7 @@ class User extends Authenticatable
      */
     public function feed()
     {
-        return $this->statuses()->latest();
+        // 加上with(user)提前一次查询,避免N+1次查询
+        return $this->statuses()->with('user')->latest();
     }
 }

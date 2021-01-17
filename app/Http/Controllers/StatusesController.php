@@ -103,6 +103,14 @@ class StatusesController extends Controller
      */
     public function destroy(Status $status)
     {
-        //
+        // 校验权限
+        $this->authorize('destroy', $status);
+
+        // 删除
+        $status->delete();
+
+        // 返回
+        session()->flash('success', '微博已被成功删除！');
+        return redirect()->back();
     }
 }
