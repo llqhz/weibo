@@ -35,3 +35,17 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 
 // 微博的删除和创建
 Route::resource('statuses', 'StatusesController')->only(['store', 'destroy'])->names('statuses');
+
+
+
+// 测试关联关系
+use App\Models\User;
+Route::get('/test/{user}', function (User $user) {
+    $followers = $user->followers()->get()->toArray();
+
+    $followings = $user->followings();
+
+    // $followings->sync([43], false);
+    $followings->detach([42]);
+    var_dump($followings->allRelatedIds()->toArray());
+});
