@@ -12,6 +12,13 @@
         </section>
         <!-- 用户详情 -->
 
+        <!-- 关注按钮 -->
+        {{-- 用check判断是否已登录, 已登录的用户才展示关注按钮 --}}
+        @if(\Auth::check())
+          @include('users._follow_form', ['user' => $user])
+        @endif
+        <!-- 关注按钮 -->
+
         <!-- 关系统计 -->
         <section class="stats mt-2">
           @include('shared._stats', ['user' => $user])

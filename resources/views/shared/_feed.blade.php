@@ -9,5 +9,5 @@
     {!! $feed_items->render() !!}
   </dev>
 @else
-  <p>没有数据！</p>
+  <p class="text-center mt-5">没有数据！</p>
 @endif
