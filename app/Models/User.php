@@ -135,6 +135,7 @@ class User extends Authenticatable
 
     /**
      * 用户关注的人
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function followings()
     {

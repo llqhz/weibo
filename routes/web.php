@@ -37,6 +37,10 @@ Route::post('password/reset', 'Auth\ResetPasswordController@reset')->name('passw
 Route::resource('statuses', 'StatusesController')->only(['store', 'destroy'])->names('statuses');
 
 
+// 用户社交统计页面
+Route::get("/users/{user}/followings", 'UsersController@followings')->name('users.followings');
+Route::get("/users/{user}/followers", 'UsersController@followers')->name('users.followers');
+
 
 // 测试关联关系
 use App\Models\User;
