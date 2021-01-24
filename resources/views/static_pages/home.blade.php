@@ -9,9 +9,17 @@
          </section>
        </div>
        <aside class="col-md-4">
+         <!-- 个人头像 -->
          <section class="user_info">
            @include('shared._user_info', ['user' => Auth::user()])
          </section>
+         <!-- 个人头像 -->
+
+         <!-- 关系统计 -->
+         <section class="stats mt-2">
+           @include('shared._stats', ['user' => Auth::user()])
+         </section>
+         <!-- 关系统计 -->
        </aside>
      </div>
 

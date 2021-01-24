@@ -130,7 +130,7 @@ class User extends Authenticatable
             'id',
             'id',
             static::class
-        );
+        )->withTimestamps();
     }
 
     /**
@@ -156,7 +156,7 @@ class User extends Authenticatable
             'id',
             'id',
             static::class
-        );
+        )->withTimestamps();
     }
 
     /**
@@ -181,5 +181,10 @@ class User extends Authenticatable
     public function isFollowing($user)
     {
         return $this->followings()->get()->contains($user);
+    }
+
+    public static function getUsersExceptMe($me)
+    {
+        return self::query()->where('name', '!=', $me)->get();
     }
 }

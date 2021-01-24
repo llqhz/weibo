@@ -12,6 +12,12 @@
         </section>
         <!-- 用户详情 -->
 
+        <!-- 关系统计 -->
+        <section class="stats mt-2">
+          @include('shared._stats', ['user' => $user])
+        </section>
+        <!-- 关系统计 -->
+
         <!-- 用户动态 -->
         <section class="status">
           @include('shared._feed', ['feed_items' => $statuses])

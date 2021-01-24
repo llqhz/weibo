@@ -72,3 +72,44 @@ section.user_info {
     max-width: 100px;
   }
 }
+
+/* user count info */
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+
+  display: flex;
+  flex-direction: row;
+
+  padding-left: 2px;
+
+  a {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    text-align: center;
+    border-left: 1px solid #eee;
+    &:first-child {
+      border-left: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: #337ab7;
+    }
+
+    color: #33383c;
+    &>* {
+      text-align: center;
+      flex: 1;
+
+      display: inline-block;
+    }
+
+    strong {
+      font-size: 1.2em;
+      color: black;
+    }
+  }
+}
