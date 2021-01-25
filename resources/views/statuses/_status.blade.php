@@ -7,12 +7,14 @@
     {!! $status->content !!}
   </div>
 
-  <form method="post"
-        action="{{ route('statuses.destroy', [$status]) }}"
-        onsubmit="return confirm('您确定要删除本条微博吗？');"
-  >
-    {{ csrf_field() }}
-    {{ method_field('delete') }}
-    <button type="submit" class="btn btn-danger btn-sm">删除</button>
-  </form>
+  @can('destroy', $status)
+    <form method="post"
+          action="{{ route('statuses.destroy', [$status]) }}"
+          onsubmit="return confirm('您确定要删除本条微博吗？');"
+    >
+      {{ csrf_field() }}
+      {{ method_field('delete') }}
+      <button type="submit" class="btn btn-danger btn-sm">删除</button>
+    </form>
+  @endcan
 </li>

@@ -103,7 +103,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::query()->paginate(10);
+        $users = User::query()->where('activated', 1)->paginate(10);
 
         return view('users.index', compact('users'));
     }
@@ -128,6 +128,7 @@ class UsersController extends Controller
         Mail::send($view, $data, function (Message $message) use ($to, $subject) {
             $message->to($to)->subject($subject);
         });
+        info('send email:', [route('confirm_email', $user->activation_token)]);
     }
 
     // 确认邮箱

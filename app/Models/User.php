@@ -77,12 +77,18 @@ class User extends Authenticatable
 
     /**
      * 获取用户已经发布的微博
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Builder
      */
     public function feed()
     {
         // 加上with(user)提前一次查询,避免N+1次查询
-        return $this->statuses()->with('user')->latest();
+        $user_ids = $this->followings()->where('activated', 1)->get()
+            ->pluck('id')
+            ->push($this->id)
+            ->toArray();
+        return Status::query()->whereIn('user_id', $user_ids)
+            ->with('user')
+            ->latest();
     }
 
     /**

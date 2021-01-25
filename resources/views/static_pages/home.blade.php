@@ -27,6 +27,8 @@
        <div class="col-md-8">
          <!-- 用户动态 -->
          <section class="status">
+           <h4>微博列表</h4>
+           <hr>
            @include('shared._feed', ['feed_items' => $feed_items])
          </section>
          <!-- 用户动态 -->
